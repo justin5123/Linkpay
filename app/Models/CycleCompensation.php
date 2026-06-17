@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CycleCompensation extends Model
 {
     use HasFactory;
-
+    protected $table = 'cycle_compensations';
     protected $fillable = [
         'reference',
         'date_debut',

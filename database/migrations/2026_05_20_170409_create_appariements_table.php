@@ -49,7 +49,9 @@ return new class extends Migration
             // Référence unique
             $table->string('reference')
                 ->unique();
-
+            $table->decimal('montant_a_payer_emetteur', 15, 2)->default(0)->after('montant_compense');
+            $table->decimal('montant_a_payer_recepteur', 15, 2)->default(0)->after('montant_a_payer_emetteur');
+       
             // Dates métier
             $table->timestamp('date_appariement')
                 ->nullable();

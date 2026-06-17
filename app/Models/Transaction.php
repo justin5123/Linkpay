@@ -37,4 +37,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Appariement::class);
     }
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Notification; // ← Import du modèle Notification
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,19 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // 🔔 Créer une notification de bienvenue/connexion
+        $user = Auth::user();
+        Notification::create([
+            'users_id' => $user->id,
+            'type' => 'SECURITE',
+            'titre' => 'Bienvenue sur LinPay 👋',
+            'canal' => 'APP',
+            'message' => 'Vous vous êtes connecté avec succès. Nous sommes heureux de vous revoir !',
+            'est_lu' => false,
+            'priorite' => 'NORMALE',
+            'lien_action' => route('dashboard'),
+        ]);
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

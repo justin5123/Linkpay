@@ -11,14 +11,19 @@ class DocumentKyc extends Model
     protected $table = 'documents_kyc';
 
     protected $fillable = [
-        'users_id',
-        'type_document',
-        'numero_document',
-        'document_recto',
-        'document_verso',
-        'selfie_verification',
-        'statut',
-    ];
+    'users_id',   // ou 'users_id' selon votre table
+    'type_document',
+    'numero_document',
+    'image_recto',
+    'image_verso',
+    'image_selfie',
+    'score_similarite',
+    'statut',
+    'motif_rejet',
+    'valide_par',
+    'date_soumission',
+    'date_validation',
+];
 
     public function user()
     {

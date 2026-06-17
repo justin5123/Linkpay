@@ -27,6 +27,10 @@ class Appariement extends Model
         );
     }
 
+    public function transactionCompensee()
+    {
+        return $this->hasOne(TransactionCompensee::class);
+    }
     public function annonceReception()
     {
         return $this->belongsTo(

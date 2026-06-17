@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Annonce extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'users_id',
         'type',
@@ -18,14 +19,28 @@ class Annonce extends Model
         'pays_source',
         'pays_destination',
         'taux_change',
+        'beneficiaire_nom',
+        'beneficiaire_telephone',
+        'beneficiaire_email',
         'statut',
         'est_appariee',
-        'espire_le',
+        'expire_le',
+    ];
+
+    protected $casts = [
+        'est_appariee' => 'boolean',
+        'montant_source' => 'decimal:2',
+        'montant_cible' => 'decimal:2',
+        'taux_change' => 'decimal:6',
+        'expire_le' => 'datetime',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(
+            User::class,
+            'users_id'
+        );
     }
 
     public function appariementsEnvoi()
@@ -42,5 +57,11 @@ class Annonce extends Model
             Appariement::class,
             'annonce_reception_id'
         );
+    }
+
+    public function estExpiree(): bool
+    {
+        return $this->expire_le !== null
+            && $this->expire_le->isPast();
     }
 }
